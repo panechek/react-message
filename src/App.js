@@ -10,57 +10,68 @@ import MessageListComp from './MessageListComp'
 function App() {
 
   const [inputMessage, setInputMessage] = useState('');
-  const [botMessage, setBotMessage] = useState('Привет')
+  const [author, setAuthor] = useState('');
   const [messageArray, setMessageArray] = useState([]);
 
 
   console.log({ messageArray })
 
-  const message = {
-    text: inputMessage,
+
+  let message = {
+    text: '',
     time: new Date().toLocaleString(),
-    author: 'guess'
+    author: ''
+  }
+
+  const makeMessage = (text, author) => {
+
+    message.text = text;
+    message.author = author
 
   }
 
   const onSendMessage = () => {
 
+    makeMessage(inputMessage, 'guess');
     setMessageArray(prev => [...prev, message]);
+    setAuthor('guess');
     setInputMessage('');
+    console.log(message)
   }
 
-
-
-  const botTextMessage = {
-    text: botMessage,
-    time: new Date().toLocaleString(),
-    author: 'bot'
-  }
-
-  // useEffect(() => {
-
-  //   messageArray.push(botTextMessage);
-  //   console.log(messageArray)
-  // }, [])
 
   useEffect(() => {
 
-    switch (inputMessage) {
-      case 'Привет':
-        setBotMessage('Как дела?')
-        setMessageArray(prev => [...prev, botTextMessage]);
-        break;
-      case 'Хорошо':
-        setBotMessage('Я очень рад')
-        setMessageArray(prev => [...prev, botTextMessage]);
-        break;
-      default:
-        setBotMessage('Я ничего не понял')
-        setMessageArray(prev => [...prev, botTextMessage]);
-    }
-    setBotMessage('')
+    makeMessage('Привет', 'bot');
+    setMessageArray(prev => [...prev, message]);
+    setAuthor('bot');
+  }, [])
 
-  }, [setMessageArray])
+  useEffect(() => {
+    console.log({ message })
+    if (author === 'guess') {
+      switch (message.text) {
+        case 'Привет':
+          makeMessage('Как дела?', 'bot');
+          setMessageArray(prev => [...prev, message]);
+          setAuthor('bot');
+          break;
+        case 'Хорошо':
+          makeMessage('Я рад!', 'bot');
+          setMessageArray(prev => [...prev, message]);
+          setAuthor('bot');
+          break;
+        default:
+          makeMessage('Ничего не понятно', 'bot');
+          setMessageArray(prev => [...prev, message]);
+          setAuthor('bot');
+      }
+
+
+      // console.log({ message })
+
+    }
+  }, [message])
 
 
   return (
