@@ -10,68 +10,70 @@ import MessageListComp from './MessageListComp'
 function App() {
 
   const [inputMessage, setInputMessage] = useState('');
-  const [author, setAuthor] = useState('');
   const [messageArray, setMessageArray] = useState([]);
 
 
   console.log({ messageArray })
 
 
-  let message = {
-    text: '',
-    time: new Date().toLocaleString(),
-    author: ''
-  }
 
-  const makeMessage = (text, author) => {
-
-    message.text = text;
-    message.author = author
-
-  }
 
   const onSendMessage = () => {
 
-    makeMessage(inputMessage, 'guess');
-    setMessageArray(prev => [...prev, message]);
-    setAuthor('guess');
+    setMessageArray(prev => [...prev, {
+      text: inputMessage,
+      time: new Date().toLocaleString(),
+      author: 'guess'
+    }]);
     setInputMessage('');
-    console.log(message)
   }
 
 
   useEffect(() => {
 
-    makeMessage('Привет', 'bot');
-    setMessageArray(prev => [...prev, message]);
-    setAuthor('bot');
+    setMessageArray(prev => [...prev, {
+      text: 'Привет',
+      time: new Date().toLocaleString(),
+      author: 'bot'
+    }]);
   }, [])
 
   useEffect(() => {
-    console.log({ message })
-    if (author === 'guess') {
-      switch (message.text) {
-        case 'Привет':
-          makeMessage('Как дела?', 'bot');
-          setMessageArray(prev => [...prev, message]);
-          setAuthor('bot');
-          break;
-        case 'Хорошо':
-          makeMessage('Я рад!', 'bot');
-          setMessageArray(prev => [...prev, message]);
-          setAuthor('bot');
-          break;
-        default:
-          makeMessage('Ничего не понятно', 'bot');
-          setMessageArray(prev => [...prev, message]);
-          setAuthor('bot');
+    setTimeout(() => {
+
+      if (messageArray.length !== 0) {
+
+        if ((messageArray[messageArray.length - 1].author) === 'guess') {
+          console.log('done')
+          switch (messageArray[messageArray.length - 1].text) {
+            case 'Привет':
+              setMessageArray(prev => [...prev, {
+                text: 'Как дела?',
+                time: new Date().toLocaleString(),
+                author: 'bot'
+              }]);
+              break;
+            case 'Хорошо':
+              setMessageArray(prev => [...prev, {
+                text: 'Я рад!',
+                time: new Date().toLocaleString(),
+                author: 'bot'
+              }]);
+              break;
+            default:
+              setMessageArray(prev => [...prev, {
+                text: 'Ничего не понял',
+                time: new Date().toLocaleString(),
+                author: 'bot'
+              }]);
+          }
+
+
+          console.log({})
+        }
       }
-
-
-      // console.log({ message })
-
-    }
-  }, [message])
+    }, 1000)
+  }, [messageArray])
 
 
   return (
