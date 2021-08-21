@@ -1,9 +1,38 @@
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+    button: {
+        // background: "green",
+        // '&:hover': {
+        //     background: 'forestgreen'
+        // },
+        width: "25%"
+    },
+    textField: {
+        width: "75%",
+
+
+    },
+    messageOn: {
+        display: "flex",
+        justifyContent: "space-between",
+    }
+}))
+
 const Message = (props) => {
 
+    const classes = useStyles();
 
     return (
-        <div className="message-on">
-            <input className="input"
+        <div className={classes.messageOn}>
+            <TextField className={classes.textField}
+                label="Введите сообщение"
+                id="outlined-basic"
+                variant="outlined"
+                multiline
+                autoFocus
                 value={props.value}
                 onChange={(e) => props.onChange(e.target.value)}
                 onKeyDown={({ key }) => {
@@ -11,7 +40,7 @@ const Message = (props) => {
                         props.onClick()
                     }
                 }} />
-            <button className="button" onClick={() => props.onClick()}>Оправить</button>
+            <Button variant="contained" color="primary" className={classes.button} onClick={() => props.onClick()}>Оправить</Button>
         </div>
     )
 };

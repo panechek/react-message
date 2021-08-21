@@ -4,10 +4,29 @@ import React, {
 } from 'react';
 import './App.css';
 import Message from './MessageComp';
-import MessageListComp from './MessageListComp'
+import MessageListComp from './MessageListComp';
+import ChatList from './ChatListComp';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 
 function App() {
+
+  // const useStyles = makeStyles(() => ({
+  //   messanger: {
+  //     height: "80vh",
+  //     display: "flex",
+  //     border: "1px solid rgb(7, 0, 0)",
+  //     margin: "0 auto",
+  //     width: "800px",
+
+  //   },
+
+
+  // }));
+
+
+  // const classes = useStyles();
 
   const [inputMessage, setInputMessage] = useState('');
   const [messageArray, setMessageArray] = useState([]);
@@ -19,13 +38,16 @@ function App() {
 
 
   const onSendMessage = () => {
+    const trimmedMessage = inputMessage.trim();
 
-    setMessageArray(prev => [...prev, {
-      text: inputMessage,
-      time: new Date().toLocaleString(),
-      author: 'guess'
-    }]);
-    setInputMessage('');
+    if (trimmedMessage !== "") {
+      setMessageArray(prev => [...prev, {
+        text: trimmedMessage,
+        time: new Date().toLocaleString(),
+        author: 'guess'
+      }]);
+      setInputMessage('');
+    }
   }
 
 
@@ -78,10 +100,13 @@ function App() {
 
   return (
     <div className="messanger">
+      <ChatList />
+      <div className="activChat">
 
-      <MessageListComp messageArray={messageArray} />
-      <Message value={inputMessage} onChange={setInputMessage} onClick={onSendMessage} />
 
+        <MessageListComp messageArray={messageArray} />
+        <Message value={inputMessage} onChange={setInputMessage} onClick={onSendMessage} />
+      </div>
 
 
     </div>
