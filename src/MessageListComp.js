@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
     messageList: {
-        height: "89%",
+        height: "90%",
         borderLeft: "1px solid rgb(7, 0, 0)",
         display: "flex",
         flexDirection: "column",
