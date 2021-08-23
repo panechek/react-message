@@ -5,7 +5,7 @@ import React, {
 import './App.css';
 import Message from './MessageComp';
 import MessageListComp from './MessageListComp';
-import ChatList from './ChatListComp';
+import ChatListComp from './ChatListComp';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -30,12 +30,29 @@ function App() {
 
   const [inputMessage, setInputMessage] = useState('');
   const [messageArray, setMessageArray] = useState([]);
-
+  // const [chatArray, setChatArray] = useState ([]);
 
   console.log({ messageArray })
 
+  
+  const chatArray = [
+    {
+      chatName: 'Bill',
+      id: 'Lorem ipsum dolor sit amem'
+    },
+    {
+      chatName: 'Jake',
+      id: 'Consectetur adipisicing elit. Possimus, nam.'
+    },
+    {
+      chatName: 'Daine',
+      id: 'Sunt ipsum quam aut unde optio! Atque.'
+    },
+  
 
+  ]
 
+// madeChatList()
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
@@ -49,10 +66,10 @@ function App() {
       setInputMessage('');
     }
   }
-
+  
 
   useEffect(() => {
-
+    
     setMessageArray(prev => [...prev, {
       text: 'Привет',
       time: new Date().toLocaleString(),
@@ -100,7 +117,7 @@ function App() {
 
   return (
     <div className="messanger">
-      <ChatList />
+      <ChatListComp chatArray = {chatArray} />
       <div className="activChat">
 
 
