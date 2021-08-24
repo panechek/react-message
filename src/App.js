@@ -2,41 +2,44 @@ import React, {
   useEffect,
   useState
 } from 'react';
-import './App.css';
 import Message from './MessageComp';
 import MessageListComp from './MessageListComp';
 import ChatListComp from './ChatListComp';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  makeStyles
+} from '@material-ui/core/styles';
 
+const useStyles = makeStyles(() => ({
+  messanger: {
+    height: "80vh",
+    display: "flex",
+    border: "1px solid black",
+    margin: "0 auto",
+    width: "800px",
 
+  },
+
+  activChat: {
+    width: "600px"
+  }
+
+}));
 
 function App() {
 
-  // const useStyles = makeStyles(() => ({
-  //   messanger: {
-  //     height: "80vh",
-  //     display: "flex",
-  //     border: "1px solid rgb(7, 0, 0)",
-  //     margin: "0 auto",
-  //     width: "800px",
 
-  //   },
-
-
-  // }));
-
-
-  // const classes = useStyles();
+  const classes = useStyles();
 
   const [inputMessage, setInputMessage] = useState('');
   const [messageArray, setMessageArray] = useState([]);
   // const [chatArray, setChatArray] = useState ([]);
 
-  console.log({ messageArray })
+  console.log({
+    messageArray
+  })
 
-  
-  const chatArray = [
-    {
+
+  const chatArray = [{
       chatName: 'Bill',
       id: 'Lorem ipsum dolor sit amem'
     },
@@ -48,11 +51,11 @@ function App() {
       chatName: 'Daine',
       id: 'Sunt ipsum quam aut unde optio! Atque.'
     },
-  
+
 
   ]
 
-// madeChatList()
+  // madeChatList()
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
@@ -66,10 +69,10 @@ function App() {
       setInputMessage('');
     }
   }
-  
+
 
   useEffect(() => {
-    
+
     setMessageArray(prev => [...prev, {
       text: 'Привет',
       time: new Date().toLocaleString(),
@@ -116,16 +119,12 @@ function App() {
 
 
   return (
-    <div className="messanger">
-      <ChatListComp chatArray = {chatArray} />
-      <div className="activChat">
-
-
-        <MessageListComp messageArray={messageArray} />
-        <Message value={inputMessage} onChange={setInputMessage} onClick={onSendMessage} />
-      </div>
-
-
+    <div className = {classes.messanger } >
+    <ChatListComp chatArray = { chatArray }/>
+    <div className = { classes.activChat } >
+    <MessageListComp messageArray = { messageArray } /> 
+    <Message value = { inputMessage } onChange = { setInputMessage } onClick = { onSendMessage } /> 
+    </div>
     </div>
   );
 }

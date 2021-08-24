@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+    makeStyles
+} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -12,52 +14,46 @@ import Typography from '@material-ui/core/Typography';
 
 
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            width: '100vw',
-            maxWidth: '36ch',
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100vw',
+        maxWidth: '36ch',
 
-        },
-        inline: {
-            display: 'inline',
-        },
-    }));
+    },
+    inline: {
+        display: 'inline',
+    },
+}));
 
 
-   
-    const ChatListComp = (props) => {
 
-        const classes = useStyles();
+const ChatListComp = (props) => {
 
-        return <List className={classes.root}>
-             {props.chatArray.map((chat, i) => {
-                 return (
-            <ListItem alignItems="flex-start" key={i}>
-                <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={chat.chatName}
-                    secondary={
-                        <React.Fragment>
-                            <Typography
-                                component="span"
-                                variant="body2"
-                                className={classes.inline}
-                                color="textPrimary"
-                            >
-                               {chat.id}
-                            </Typography>
-                            
-                        </React.Fragment>
-                    }
-                />
-            </ListItem>
-            // <Divider variant="inset" component="li" />
-             
-         )
-    })}
-     </List>
+    const classes = useStyles();
+
+    return <List className = {classes.root} > 
+    { props.chatArray.map((chat, i) => {
+                return ( <ListItem alignItems = "flex-start" key = {i} >
+                    <ListItemAvatar>
+                    <Avatar alt = "Remy Sharp" src = "/static/images/avatar/1.jpg" />
+                    </ListItemAvatar> 
+                    <ListItemText primary = { chat.chatName  }
+                    secondary = { <React.Fragment>
+                                   <Typography
+                                        component = "span"
+                                        variant = "body2"
+                                        className = { classes.inline }
+                                        color = "textPrimary" >
+                                        { chat.id } 
+                                    </Typography>
+                                </React.Fragment>
+                    } /> 
+                    </ListItem>
+                    // <Divider variant="inset" component="li" />
+
+                )
+            })
+        } </List>
 }
 
 export default ChatListComp;
