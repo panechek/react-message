@@ -29,7 +29,7 @@ const Message = (props) => {
         label = "Введите сообщение"
         id = "outlined-basic"
         variant = "outlined"
-        multiline autoFocus value = {props.value}
+         autoFocus value = {props.value}
         onChange = {(e) => props.onChange(e.target.value)}
         onKeyDown = {({key}) => {
                 if (key === 'Enter') {
