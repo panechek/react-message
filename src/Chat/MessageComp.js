@@ -35,8 +35,9 @@ const Message = (props) => {
                 autoFocus
                 value={props.value}
                 onChange={(e) => props.onChange(e.target.value)}
-                onKeyDown={({ key }) => {
-                    if (key === 'Enter') {
+                onKeyDown={( e ) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
                         props.onClick()
                     }
                 }} />
