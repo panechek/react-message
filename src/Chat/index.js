@@ -22,6 +22,11 @@ const useStyles = makeStyles(() => ({
 
   activChat: {
     width: "600px",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    justifyContent: "space-between"
+    
     // borderBottom: "none"
   }
 
