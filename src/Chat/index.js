@@ -1,6 +1,7 @@
 import React, {
   useEffect,
-  useState
+  useState,
+  
 } from 'react';
 import Message from './MessageComp';
 import MessageListComp from './MessageListComp';
@@ -8,6 +9,25 @@ import ChatListComp from './ChatListComp';
 import {
   makeStyles
 } from '@material-ui/core/styles';
+import { useParams } from 'react-router';
+
+// const initialChats = { 
+//   id1:{
+  
+//     chatName: 'Bill',
+//    messages: [],
+//   },
+//   id2:{
+  
+//     chatName: 'Phill',
+//    messages: [],
+//   },
+//   id3:{
+  
+//     chatName: 'Jake',
+//    messages: [],
+//   },
+// };
 
 const useStyles = makeStyles(() => ({
   messanger: {
@@ -27,42 +47,53 @@ const useStyles = makeStyles(() => ({
     height: "100%",
     justifyContent: "space-between"
     
-    // borderBottom: "none"
+   
   }
 
 }));
 
 function Chat() {
 
+  const initialChats = { 
+    id1:{
+    
+      chatName: 'Bill',
+     messages: [{text: "Hi" ,
+      time: new Date().toLocaleString(),
+      author: 'guess'}],
+    },
+    id2:{
+    
+      chatName: 'Phill',
+     messages: [{text:  "Hey",
+      time: new Date().toLocaleString(),
+      author: 'guess'}],
+    },
+    id3:{
+    
+      chatName: 'Jake',
+     messages: [{text:  "Hello",
+     time: new Date().toLocaleString(),
+     author: 'guess'}],
+    },
+  };
 
+  const {chatId} = useParams();
+  console.log({chatId});
+ 
   const classes = useStyles();
 
   const [inputMessage, setInputMessage] = useState('');
   const [messageArray, setMessageArray] = useState([]);
-  // const [chatArray, setChatArray] = useState ([]);
-
-  console.log({
-    messageArray
-  })
+  const [chats, setChats] = useState (initialChats);
+ 
+  console.log({ messageArray})
 
 
-  const chatArray = [{
-      chatName: 'Bill',
-      id: 'Lorem ipsum dolor sit amem'
-    },
-    {
-      chatName: 'Jake',
-      id: 'Consectetur adipisicing elit. Possimus, nam.'
-    },
-    {
-      chatName: 'Daine',
-      id: 'Sunt ipsum quam aut unde optio! Atque.'
-    },
+  
+ 
 
 
-  ]
-
-  // madeChatList()
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
@@ -73,10 +104,14 @@ function Chat() {
         time: new Date().toLocaleString(),
         author: 'guess'
       }]);
+    
+     
+      setChats(() => chats[chatId].messages =  messageArray);
+      console.log(chats[chatId].messages);
       setInputMessage('');
     }
   }
-
+ 
 
   useEffect(() => {
 
@@ -85,11 +120,12 @@ function Chat() {
       time: new Date().toLocaleString(),
       author: 'bot'
     }]);
+   
   }, [])
 
   useEffect(() => {
     setTimeout(() => {
-
+      
       if (messageArray.length !== 0) {
 
         if ((messageArray[messageArray.length - 1].author) === 'guess') {
@@ -118,17 +154,22 @@ function Chat() {
           }
 
 
-          console.log({})
-        }
-      }
+          console.log({});
+       
+      } 
+        ;
+        
+      } 
     }, 1000)
   }, [messageArray])
 
+  
+
 
   return ( <div className = {classes.messanger}>
-            <ChatListComp chatArray = {chatArray} /> 
+            <ChatListComp chats={chats} chatId={chatId}/> 
             <div className = {classes.activChat} >
-              <MessageListComp messageArray = { messageArray }/>  
+              <MessageListComp messages = {chats[chatId].messages }/>  
               <Message value = { inputMessage } onChange = { setInputMessage } onClick = {onSendMessage }/>  
             </div> 
           </div>

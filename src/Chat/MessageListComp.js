@@ -61,7 +61,7 @@ const MessageListComp = (props) => {
   
 
     return <div class={classes.messageList}>
-        {props.messageArray.map((message, i) => {
+        {props.messages.map((message, i) => {
             const authorMessage = message.author ==='bot'
             return  (
         <div className={authorMessage ? classes.botMessage : classes.message} key={i}>

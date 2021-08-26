@@ -9,10 +9,13 @@ import Home from "./Home"
 import AppBar from "./AppBar";
 
 const App = () => {
+
+    
+
     return <Router >
-            <AppBar />
+            <AppBar  />
             <Switch>
-                <Route path="/chat">
+                <Route path="/chat/:chatId">
                     <Chat />
                 </Route>
                 <Route path="/contacts">
@@ -22,6 +25,11 @@ const App = () => {
                 <Route path="/">
                     <Home />
                 </Route>
+
+                <Route>
+                    <h3>Page not found</h3>
+                </Route>
+
 
             </Switch> 
         </Router>

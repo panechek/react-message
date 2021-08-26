@@ -7,8 +7,10 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
+import {Link} from 'react-router-dom';
 
 
+   
 
 
     const useStyles = makeStyles((theme) => ({
@@ -25,37 +27,35 @@ import Typography from '@material-ui/core/Typography';
 
 
    
-    const ChatListComp = (props) => {
+    const ChatListComp = ({chats, chatId}) => {
 
         const classes = useStyles();
 
         return (<List className={classes.root}>
-             {props.chatArray.map((chat, i) => {
-                 return (
-            <ListItem alignItems="flex-start" key={i}>
+            { Object.keys(chats).map((id, i) => {
+                 return ( <div key={i}>
+                    <Link to={`/chats/${id}`} >
+            <ListItem alignItems="flex-start" >
+                
                 <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 </ListItemAvatar>
-                <ListItemText
-                    primary={chat.chatName}
-                    secondary={<React.Fragment>
-                                <Typography
-                                component="span"
-                                variant="body2"
-                                className={classes.inline}
-                                color="textPrimary">
-                               {chat.id}
-                            </Typography>
-                        </React.Fragment>
-                    }
-                />
-            </ListItem>
-         )
-    }
-    )
-    }
+                <ListItemText style= {{color: id ===chatId ? "#000000" : "grey" }}>
+                   
+                    {chats[id].chatName}
+                   
+               
+             </ListItemText>
+             </ListItem>
+             </Link>
+             </div>
+             )
+            }
+            )
+            }
+    
      </List>);
     }
-
+            
 
 export default ChatListComp;
