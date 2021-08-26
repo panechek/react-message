@@ -33,8 +33,9 @@ import {Link} from 'react-router-dom';
 
         return (<List className={classes.root}>
             { Object.keys(chats).map((id, i) => {
+                console.log(`/chat/${id}`)
                  return ( <div key={i}>
-                    <Link to={`/chats/${id}`} >
+                    <Link to={`/chat/${id}`} >
             <ListItem alignItems="flex-start" >
                 
                 <ListItemAvatar>

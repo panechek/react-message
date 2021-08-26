@@ -88,6 +88,7 @@ function Chat() {
   const [chats, setChats] = useState (initialChats);
  
   console.log({ messageArray})
+ 
 
 
   
@@ -106,7 +107,7 @@ function Chat() {
       }]);
     
      
-      setChats(() => chats[chatId].messages =  messageArray);
+      setChats(() => chats[chatId].messages.push(messageArray));
       console.log(chats[chatId].messages);
       setInputMessage('');
     }
@@ -169,7 +170,7 @@ function Chat() {
   return ( <div className = {classes.messanger}>
             <ChatListComp chats={chats} chatId={chatId}/> 
             <div className = {classes.activChat} >
-              <MessageListComp messages = {chats[chatId].messages }/>  
+              <MessageListComp chats={chats} chatId={chatId}/>  
               <Message value = { inputMessage } onChange = { setInputMessage } onClick = {onSendMessage }/>  
             </div> 
           </div>
