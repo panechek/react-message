@@ -18,7 +18,7 @@ const App = () => {
     return <Router >
             <AppBar  />
             <Switch>
-                <Route path="/chat/:chatId">
+                <Route path="/chat">
                     <Chat />
                 </Route>
                 <Route path="/contacts">

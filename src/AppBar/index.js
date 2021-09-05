@@ -40,7 +40,7 @@ const routes = [{
     },
     {
         pathTitle: "Chat",
-        path: "/chat/id1"
+        path: "/chat"
     },
     {
         pathTitle: "Contacts",
