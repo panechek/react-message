@@ -29,7 +29,8 @@ import {Link} from 'react-router-dom';
    
     const ChatListComp = () => {
 
-        return <div>contacts</div>
+       
+        return <div style={{ width: '200px', borderBottom: '1px solid black' }}>contacts</div>
     
     }        
 

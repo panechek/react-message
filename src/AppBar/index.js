@@ -46,6 +46,10 @@ const routes = [{
         pathTitle: "Contacts",
         path: "/Contacts"
     },
+    {
+        pathTitle: "Profile",
+        path: "/Profile"
+    },
 ]
 
 const AppBar = () => {

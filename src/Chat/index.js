@@ -51,7 +51,7 @@ function Chat() {
   const dispatch = useDispatch();
   const [inputMessage, setInputMessage] = useState('');
   const {messagesArray} = useSelector(state => state.chat)
-
+  const background = useSelector(state => state.profile);
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
@@ -80,7 +80,7 @@ function Chat() {
 
 
 
-  return ( <div className = { classes.messanger}>
+  return ( <div className = { classes.messanger} style={background} >
     <ChatListComp  messagesArray = {messagesArray}/>  
     <div className = {classes.activChat} >
     <MessageListComp  />  
