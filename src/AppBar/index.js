@@ -2,9 +2,15 @@ import {
     AppBar as MaterialUiAppBar
 } from "@material-ui/core";
 import Toolbar from '@material-ui/core/Toolbar';
-import {Link, useLocation} from 'react-router-dom';
+import {
+    Link,
+    useLocation
+} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+    makeStyles
+} from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -24,47 +30,50 @@ const useStyles = makeStyles((theme) => ({
     },
 
     top: {
-        marginBottom : "50px"
+        marginBottom: "50px"
     }
 }));
 
-const routes = [ 
-    {
-    pathTitle: "Home",
-    path: "/home"
+const routes = [{
+        pathTitle: "Home",
+        path: "/home"
     },
     {
-    pathTitle: "Chat",
-    path: "/chat"
+        pathTitle: "Chat",
+        path: "/chat"
     },
     {
-    pathTitle: "Contacts",
-    path: "/Contacts"
+        pathTitle: "Contacts",
+        path: "/Contacts"
+    },
+    {
+        pathTitle: "Profile",
+        path: "/Profile"
     },
 ]
 
 const AppBar = () => {
 
-   const classes = useStyles();
-   const location = useLocation();
+    const classes = useStyles();
+    const location = useLocation();
 
-   const pathName = location.pathname;
+    const pathName = location.pathname;
 
 
-    return <MaterialUiAppBar position="static" className={classes.top}>
-            <Toolbar className={classes.bar}>
+    return <MaterialUiAppBar position = "static"
+    className = {classes.top} >
+        <Toolbar className = {classes.bar} >
 
-                {routes.map((route) =>(
-                    <Link key={route.path} to={route.path} className={`${classes.link} ${route.path ===pathName && classes.activeLink}`}>
-                    <Typography>
-                   {route.pathTitle}
-                    </Typography>
-                </Link>
+        {routes.map((route) => ( <Link key = {route.path}
+                to = {route.path}
+                className = {`${classes.link} ${route.path ===pathName && classes.activeLink}`} >
+                <Typography > {route.pathTitle } </Typography> </Link>
 
-                ))}
+            ))
+        }
 
-               
-            </Toolbar> 
+
+        </Toolbar>  
         </MaterialUiAppBar>
 }
 

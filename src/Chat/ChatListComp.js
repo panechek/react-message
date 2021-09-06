@@ -7,55 +7,31 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
-
-
-
-
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            width: '100vw',
-            maxWidth: '36ch',
-            borderBottom: "1px solid black"
-
-        },
-        inline: {
-            display: 'inline',
-        },
-    }));
+import {Link} from 'react-router-dom';
 
 
    
-    const ChatListComp = (props) => {
 
-        const classes = useStyles();
 
-        return (<List className={classes.root}>
-             {props.chatArray.map((chat, i) => {
-                 return (
-            <ListItem alignItems="flex-start" key={i}>
-                <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={chat.chatName}
-                    secondary={<React.Fragment>
-                                <Typography
-                                component="span"
-                                variant="body2"
-                                className={classes.inline}
-                                color="textPrimary">
-                               {chat.id}
-                            </Typography>
-                        </React.Fragment>
-                    }
-                />
-            </ListItem>
-         )
-    }
-    )
-    }
-     </List>);
-    }
+    // const useStyles = makeStyles((theme) => ({
+    //     root: {
+    //         width: '100vw',
+    //         maxWidth: '36ch',
+    //         borderBottom: "1px solid black"
 
+    //     },
+    //     inline: {
+    //         display: 'inline',
+    //     },
+    // }));
+
+
+   
+    const ChatListComp = () => {
+
+       
+        return <div style={{ width: '200px', borderBottom: '1px solid black' }}>contacts</div>
+    
+    }        
 
 export default ChatListComp;
