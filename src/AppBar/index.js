@@ -1,15 +1,26 @@
+import { useState } from "react";
 import {
-    AppBar as MaterialUiAppBar
+    AppBar as MaterialUiAppBar, InputAdornment
 } from "@material-ui/core";
 import Toolbar from '@material-ui/core/Toolbar';
+import  Box  from "@material-ui/core/Box";
 import {
     Link,
     useLocation
 } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
+import Drawer from '@material-ui/core/Drawer';
 import {
     makeStyles
 } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import  IconButton  from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import  MenuItem  from "@material-ui/core/MenuItem";
+import  TextField  from "@material-ui/core/TextField";
+import SearchIcon from "@material-ui/icons/Search";
+import { useSelector, useDispatch } from "react-redux";
+import ChatPrewiew from "./ChatPrewiew";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,8 +41,37 @@ const useStyles = makeStyles((theme) => ({
     },
 
     top: {
-        marginBottom: "50px"
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+
+    root: {
+        marginRight:'550px'
+    },
+
+    wrapper: {
+        width: '350px',
+        padding: '10px 10px 10px 0'
+    },
+
+    input: {
+        "& div": {
+        borderRadius: '40px',
+        "& input": {
+            padding: '5px 10px',
+        }
+    },
+},
+
+    chatWrapper: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     }
+    
 }));
 
 const routes = [{
@@ -56,25 +96,58 @@ const AppBar = () => {
 
     const classes = useStyles();
     const location = useLocation();
+    const {chats} = useSelector((state) => state.chat)
 
     const pathName = location.pathname;
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
 
-    return <MaterialUiAppBar position = "static"
-    className = {classes.top} >
-        <Toolbar className = {classes.bar} >
-
-        {routes.map((route) => ( <Link key = {route.path}
-                to = {route.path}
-                className = {`${classes.link} ${route.path ===pathName && classes.activeLink}`} >
-                <Typography > {route.pathTitle } </Typography> </Link>
-
-            ))
-        }
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
 
 
-        </Toolbar>  
-        </MaterialUiAppBar>
+    return (
+        <Drawer variant='permanent' open classes={{paper: classes.wrapper, root: classes.root}}>
+            <Box className={classes.top}>
+               <IconButton onClick={handleClick}>
+                   <MenuIcon />
+                </IconButton>
+                <Menu id="menu" anchorEl={anchorEl} open={open} onClose={handleClose} anchorOrigin={{horizontal: "left", vertical: "bottom"}} anchorPosition={{top: 50, left: 6}} anchorReference={'anchorPosition'}>
+                    <MenuItem key={1}>Профиль</MenuItem>
+                    <MenuItem key={2}>Настройки</MenuItem>
+                </Menu>
+                <TextField placeholder='Поиск...' variant='outlined' className={classes.input} InputProps={{startAdornment: (<InputAdornment position='start'><SearchIcon /></InputAdornment>)}}/> 
+                </Box>
+                <Box className={classes.chatWrapper}>
+                    {chats.map((chat) => (
+                        <ChatPrewiew chat={chat} />
+                    ))}
+                    
+                </Box>
+        </Drawer>
+        
+
+    // <MaterialUiAppBar position = "static"
+    // className = {classes.top} >
+    //     <Toolbar className = {classes.bar} >
+
+    //     {routes.map((route) => ( <Link key = {route.path}
+    //             to = {route.path}
+    //             className = {`${classes.link} ${route.path ===pathName && classes.activeLink}`} >
+    //             <Typography > {route.pathTitle } </Typography> </Link>
+
+    //         ))
+    //     }
+
+
+    //     </Toolbar>  
+    //     </MaterialUiAppBar>
+    )
 }
 
 export default AppBar

@@ -12,7 +12,6 @@ import {
 } from './ChatSlice';
 import Message from './MessageComp';
 import MessageListComp from './MessageListComp';
-import ChatListComp from './ChatListComp';
 import {
   makeStyles
 } from '@material-ui/core/styles';
@@ -81,7 +80,6 @@ function Chat() {
 
 
   return ( <div className = { classes.messanger} style={background} >
-    <ChatListComp  messagesArray = {messagesArray}/>  
     <div className = {classes.activChat} >
     <MessageListComp  />  
     <Message value = {inputMessage} onChange = {setInputMessage} onClick = {onSendMessage} />  

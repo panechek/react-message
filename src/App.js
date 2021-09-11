@@ -8,18 +8,31 @@ import Chat from "./Chat";
 import Contacts from "./Contacts";
 import Home from "./Home";
 import AppBar from "./AppBar";
-import Profile from "./Profile"
+import Profile from "./Profile";
+import {
+    makeStyles
+  } from '@material-ui/core/styles';
+
+  const useStyles = makeStyles(() => ({
+    wrapper: {
+        width: '100vw',
+        height: '100vh',
+        display: 'flex'
+    }
+
+  }))
 
 
 
 const App = () => {
 
-    
+    const classes = useStyles();
 
-    return <Router >
+    return (<Router >
+        <div className={classes.wrapper}>
             <AppBar  />
             <Switch>
-                <Route path="/chat">
+                <Route path="/chat/:id">
                     <Chat />
                 </Route>
                 <Route path="/contacts">
@@ -38,7 +51,8 @@ const App = () => {
 
 
             </Switch> 
-        </Router>
+            </div>
+        </Router>)
 };
 
 export default App
