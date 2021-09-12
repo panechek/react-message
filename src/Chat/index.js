@@ -44,6 +44,21 @@ const useStyles = makeStyles(() => ({
 
 }));
 
+
+const sendMessageWithThunk = (message) => (dispatch, getState) =>{
+  const {chat} = getState();
+  const myId = chat.myId;
+  dispatch(addMessage(message));
+  if (message.authorId === myId){
+    const botMessage = {
+      chatId: message.chatId,
+      trimmedMessage: "Я робот",
+      authorId:  message.chatId,
+    };
+    setTimeout(() => dispatch(addMessage(botMessage)), 1500);
+  }
+};
+
 function Chat() {
 
   const urlParams = useParams();
@@ -55,33 +70,47 @@ function Chat() {
 
   const [inputMessage, setInputMessage] = useState('');
 
-  const {chats} = useSelector(state => state.chat);
-  const messagesArray = chats.find((chat) => chat.id === chatId).messagesArray;
+  const messages = useSelector((state) => state.chat.messages[chatId]);
+  const myId = useSelector((state) => state.chat.myId);
 
   const background = useSelector(state => state.profile);
- console.log(chatId)
+ console.log(chatId);
+
+//  const sendMessageWithThunk = (message) => (dispatch, getState) =>{
+//    const {chat} = getState();
+//    const myId = chat.myId;
+//    dispatch(addMessage(message));
+//    if (message.authorId === myId){
+//      const botMessage = {
+//        chatId: message.chatId,
+//        trimmedMessage: "Я робот",
+//        authorId:  message.chatId,
+//      };
+//      setTimeout(() => dispatch(addMessage(botMessage)), 1500);
+//    }
+//  };
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
 
     if (trimmedMessage !== "") {
-      dispatch(addMessage({
-        chatId, trimmedMessage
-        // text: trimmedMessage,
-        // time: new Date().toLocaleString(),
-        // author: 'guess'
+      dispatch(sendMessageWithThunk({
+        chatId, trimmedMessage, authorId: myId
+        
       }));
   };
   setInputMessage('')
 };
 
+
+
   useEffect(() => {
-    if (messagesArray.lenght > 0) {
+    if (messages.lenght > 0) {
       setTimeout(() => {
         console.log('Сообщение оправлено')
       })
     }
-  }, [messagesArray])
+  }, [messages])
 
 
 
@@ -91,7 +120,7 @@ function Chat() {
 
   return ( <div className = { classes.messanger} style={background} >
     <div className = {classes.activChat} >
-    <MessageListComp  messagesArray={  messagesArray}/>  
+    <MessageListComp  messagesArray={  messages}/>  
     <Message value = {inputMessage} onChange = {setInputMessage} onClick = {onSendMessage} />  
      </div > 
      </div>
