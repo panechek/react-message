@@ -7,6 +7,7 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState: {
     messagesArray: [],
+    myId: 1,
     chats: [
       {
         id: 2,
@@ -70,6 +71,11 @@ export const chatSlice = createSlice({
   reducers: {
 
     addMessage: (state, action) => {
+      const {chatId, trimmedMessage} = action;
+      const chatIndex = state.chats.findIndex((chat) => chat.userId === chatId);
+      state.chats[chatIndex].messagesArray.push({
+        text: trimmedMessage, timeStamp: moment(), isRead: false, userId: state.myId
+      })
       state.messagesArray.push(action.payload)
     }
 

@@ -15,6 +15,7 @@ import MessageListComp from './MessageListComp';
 import {
   makeStyles
 } from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -22,17 +23,17 @@ import {
 
 const useStyles = makeStyles(() => ({
   messanger: {
-    height: "80vh",
+    height: "100vh",
     display: "flex",
-    border: "1px solid black",
+    // border: "1px solid black",
     margin: "0 auto",
-    width: "800px",
+    width: '100%',
     borderBottom: "none"
 
   },
 
   activChat: {
-    width: "600px",
+    width: '100%',
     display: "flex",
     flexDirection: "column",
     height: "100%",
@@ -45,21 +46,30 @@ const useStyles = makeStyles(() => ({
 
 function Chat() {
 
+  const urlParams = useParams();
+  const chatId = Number.parseInt( urlParams.id);
+
 
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const [inputMessage, setInputMessage] = useState('');
-  const {messagesArray} = useSelector(state => state.chat)
+
+  const {chats} = useSelector(state => state.chat);
+  const messagesArray = chats.find((chat) => chat.id === chatId).messagesArray;
+
   const background = useSelector(state => state.profile);
+ 
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
 
     if (trimmedMessage !== "") {
       dispatch(addMessage({
-        text: trimmedMessage,
-        time: new Date().toLocaleString(),
-        author: 'guess'
+        chatId, trimmedMessage
+        // text: trimmedMessage,
+        // time: new Date().toLocaleString(),
+        // author: 'guess'
       }));
   };
   setInputMessage('')
@@ -81,7 +91,7 @@ function Chat() {
 
   return ( <div className = { classes.messanger} style={background} >
     <div className = {classes.activChat} >
-    <MessageListComp  />  
+    <MessageListComp  messagesArray={  messagesArray}/>  
     <Message value = {inputMessage} onChange = {setInputMessage} onClick = {onSendMessage} />  
      </div > 
      </div>

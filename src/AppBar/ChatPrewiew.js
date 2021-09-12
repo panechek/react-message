@@ -2,6 +2,7 @@ import Box  from "@material-ui/core/Box";
 import  Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import  Avatar from "@material-ui/core/Avatar";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles ((theme) =>({
 
@@ -47,7 +48,7 @@ const useStyles = makeStyles ((theme) =>({
 const ChatPrewiew = ({chat}) => {
 
     const classes = useStyles();
-
+    const history = useHistory();
     const {avatarUrl, name, messagesArray, id } = chat;
 
     const lastMessage = messagesArray.length > 0 ? messagesArray[messagesArray.length -1] : {text: '', timeStamp: null} ;
@@ -62,7 +63,7 @@ const ChatPrewiew = ({chat}) => {
     },0)
 
     return (
-        <Box className={classes.wrapper}>
+        <Box className={classes.wrapper}  onClick={() => history.push(`/chat/${id}`)}>
             <Avatar alt='Remy Sharp' src={avatarUrl} />
             <Box className={classes.contentWrapper}>
                 <Typography variant='h6'>{ name }</Typography>

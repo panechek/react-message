@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import  Box  from "@material-ui/core/Box";
 import {
     Link,
-    useLocation
+    useLocation, useHistory
 } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     root: {
-        marginRight:'550px'
+        marginRight:'350px'
     },
 
     wrapper: {
@@ -96,7 +96,8 @@ const AppBar = () => {
 
     const classes = useStyles();
     const location = useLocation();
-    const {chats} = useSelector((state) => state.chat)
+    const {chats} = useSelector((state) => state.chat);
+    
 
     const pathName = location.pathname;
 
@@ -125,7 +126,7 @@ const AppBar = () => {
                 </Box>
                 <Box className={classes.chatWrapper}>
                     {chats.map((chat) => (
-                        <ChatPrewiew chat={chat} />
+                        <ChatPrewiew chat={chat}/>
                     ))}
                     
                 </Box>
