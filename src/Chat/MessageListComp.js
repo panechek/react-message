@@ -4,26 +4,26 @@ import {useSelector, } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
     messageList: {
-        height: "90%",
-        borderLeft: "1px solid rgb(7, 0, 0)",
+        height: "100vh",
         display: "flex",
         flexDirection: "column",
         padding: "10px",
         overflow: "auto",
+        width: '100%'
     },
-    message: {
+    userMessage: {
         display: "flex",
         flexDirection: "column",
         alignItems: "start",
     },
     messageText: {
         border: "1px solid green",
-        borderRadius: "5px",
+        borderRadius: "10px",
         padding: "5px 10px",
         margin: "5px 0",
         color: "rgb(250, 248, 248)",
         backgroundColor: "green",
-        fontSize: "24px",
+        fontSize: "14px",
     },
 
     messageTime: {
@@ -36,10 +36,11 @@ const useStyles = makeStyles(() => ({
         color: "rgb(5, 80, 28)",
     },
 
-    botMessage: {
+    senderMessage: {
         display: "flex",
         flexDirection: "column",
         alignItems: "end",
+        
     },
 
     botMessageText: {
@@ -55,24 +56,23 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const MessageListComp = () => {
+const MessageListComp = ({messagesArray}) => {
 
     const classes = useStyles();
 
-    const {messagesArray} = useSelector(state => state.chat)
+    const {myId} = useSelector((state) => state.chat);
   
-    return <div class={classes.messageList}>
+    return (<div className={classes.messageList}>
         
-        {messagesArray.map((message, i) => {
-         return (
-           
+        {messagesArray.map((message, i) => (
+                 
             
-        <div className={classes.message} key={i}>
+        <div className={message.userId === myId ? classes.userMessage : classes.senderMessage} key={i} >
                 <div className={classes.messageText}>{message.text}</div>
-                <div className={classes.messageTime}>{message.time}</div>
+                <div className={classes.messageTime}>{message.timeStamp.format('hh:mm')}</div>
                 <div className={classes.messageAuthor}>{message.author}</div>
-            </div>)})}
-    </div>
+            </div>))}
+    </div>)
 };
 
 export default MessageListComp;
