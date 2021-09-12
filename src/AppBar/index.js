@@ -125,8 +125,8 @@ const AppBar = () => {
                 <TextField placeholder='Поиск...' variant='outlined' className={classes.input} InputProps={{startAdornment: (<InputAdornment position='start'><SearchIcon /></InputAdornment>)}}/> 
                 </Box>
                 <Box className={classes.chatWrapper}>
-                    {chats.map((chat) => (
-                        <ChatPrewiew chat={chat}/>
+                    {chats.map((chat, id) => (
+                        <ChatPrewiew chat={chat} key={id}/>
                     ))}
                     
                 </Box>

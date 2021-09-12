@@ -62,14 +62,14 @@ const MessageListComp = ({messagesArray}) => {
 
     const {myId} = useSelector((state) => state.chat);
   
-    return (<div class={classes.messageList}>
+    return (<div className={classes.messageList}>
         
         {messagesArray.map((message, i) => (
                  
             
         <div className={message.userId === myId ? classes.userMessage : classes.senderMessage} key={i} >
                 <div className={classes.messageText}>{message.text}</div>
-                <div className={classes.messageTime}>{message.time}</div>
+                <div className={classes.messageTime}>{message.timeStamp.format('hh:mm')}</div>
                 <div className={classes.messageAuthor}>{message.author}</div>
             </div>))}
     </div>)

@@ -59,7 +59,7 @@ function Chat() {
   const messagesArray = chats.find((chat) => chat.id === chatId).messagesArray;
 
   const background = useSelector(state => state.profile);
- 
+ console.log(chatId)
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
