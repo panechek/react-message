@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import {useSelector, } from 'react-redux';
-
+import moment from "moment";
 
 const useStyles = makeStyles(() => ({
     messageList: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     userMessage: {
         display: "flex",
         flexDirection: "column",
-        alignItems: "start",
+        alignItems: "end",
     },
     messageText: {
         border: "1px solid green",
@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
     senderMessage: {
         display: "flex",
         flexDirection: "column",
-        alignItems: "end",
+        alignItems: "start",
         
     },
 
@@ -67,9 +67,9 @@ const MessageListComp = ({messagesArray}) => {
         {messagesArray.map((message, i) => (
                  
             
-        <div className={message.userId === myId ? classes.userMessage : classes.senderMessage} key={i} >
+        <div className={message.authorId === myId ? classes.userMessage : classes.senderMessage} key={i} >
                 <div className={classes.messageText}>{message.text}</div>
-                <div className={classes.messageTime}>{message.timeStamp.format('hh:mm')}</div>
+                <div className={classes.messageTime}>{moment(message.timeStamp).format('hh:mm')}</div>
                 <div className={classes.messageAuthor}>{message.author}</div>
             </div>))}
     </div>)

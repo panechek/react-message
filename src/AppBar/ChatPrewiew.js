@@ -2,7 +2,9 @@ import Box  from "@material-ui/core/Box";
 import  Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import  Avatar from "@material-ui/core/Avatar";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import clsx from "clsx";
+import moment from "moment";
 
 const useStyles = makeStyles ((theme) =>({
 
@@ -14,11 +16,19 @@ const useStyles = makeStyles ((theme) =>({
         alignItems: 'center',
         borderRadius: '40px',
         cursor: 'pointer',
+        
 
         '&:hover': {
             backgroundColor: 'green'
         }
     },
+
+    selectedChat: {
+        backgroundColor: "orange",
+        "&:hover": {
+          backgroundColor: "orange",
+        },
+      },
 
     contentWrapper: {
         width: '65%',
@@ -45,37 +55,50 @@ const useStyles = makeStyles ((theme) =>({
     }
 }))
 
-const ChatPrewiew = ({chat}) => {
+const ChatPrewiew = ({messages, profile}) => {
 
     const classes = useStyles();
     const history = useHistory();
-    const {avatarUrl, name, messagesArray, id } = chat;
+    const location = useLocation();
+    const {avatar, name,  id } = profile;
 
-    const lastMessage = messagesArray.length > 0 ? messagesArray[messagesArray.length -1] : {text: '', timeStamp: null} ;
+    const locationSplitted = location.pathname.split("/");
 
-   
+  const isSelected =
+    locationSplitted[1] === "chat" &&
+    Number.parseInt(locationSplitted[2]) === id;
 
-    const unreadMessageCount = messagesArray.reduce((acc, message) => {
-        if (message.userId === id && !message.isRead){
-            acc++;
-        }
-        return acc
-    },0)
+  const lastMessage =
+    messages.length > 0
+      ? messages[messages.length - 1]
+      : { text: "", timeStamp: null };
 
     return (
-        <Box className={classes.wrapper}  onClick={() => history.push(`/chat/${id}`)}>
-            <Avatar alt='Remy Sharp' src={avatarUrl} />
-            <Box className={classes.contentWrapper}>
-                <Typography variant='h6'>{ name }</Typography>
-                <Typography className={classes.overFlowText} variant='subtitle1'>{ lastMessage.text }</Typography>
-            </Box>
-            <Box className={classes.infoContentWrwpper}>
-            
-            <Typography variant='caption'>{ lastMessage && lastMessage.timeStamp.format('h:mm') } </Typography>
-            <Typography variant='subtitle1'>{unreadMessageCount}</Typography>
-            </Box>
-        </Box>
-    )
-}
+        <Box 
+      
+      className={clsx(classes.wrapper, {
+        [classes.selectedChat]: isSelected,
+      })}
+      onClick={() => history.push(`/chat/${id}`)}
+    >
+      <Avatar alt="Remy Sharp" src={avatar} />
+
+      <Box className={classes.contentWrapper}>
+        <Typography variant="h6" className={classes.overFlowText}>
+          {name}
+        </Typography>
+        <Typography variant="subtitle1" className={classes.overFlowText}>
+          {lastMessage.text}
+        </Typography>
+      </Box>
+
+      <Box className={classes.infoContentWrapper}>
+        <Typography variant="caption">
+          {moment(lastMessage.timeStamp).format("h:mm")}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
 
 export default ChatPrewiew

@@ -25,7 +25,8 @@ import ChatPrewiew from "./ChatPrewiew";
 
 const useStyles = makeStyles((theme) => ({
     link: {
-        color: theme.palette.background.default,
+        // color: theme.palette.background.default,
+        color: 'black',
         textDecoration: "none"
     },
     bar: {
@@ -71,6 +72,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
     }
+    ,
+
+  
     
 }));
 
@@ -80,7 +84,7 @@ const routes = [{
     },
     {
         pathTitle: "Chat",
-        path: "/chat"
+        path: "/chat/2"
     },
     {
         pathTitle: "Contacts",
@@ -96,7 +100,7 @@ const AppBar = () => {
 
     const classes = useStyles();
     const location = useLocation();
-    const {chats} = useSelector((state) => state.chat);
+    const {messages, profiles} = useSelector((state) => state.chat);
     
 
     const pathName = location.pathname;
@@ -113,20 +117,28 @@ const AppBar = () => {
 
 
     return (
+
+
+        
         <Drawer variant='permanent' open classes={{paper: classes.wrapper, root: classes.root}}>
             <Box className={classes.top}>
                <IconButton onClick={handleClick}>
                    <MenuIcon />
                 </IconButton>
-                <Menu id="menu" anchorEl={anchorEl} open={open} onClose={handleClose} anchorOrigin={{horizontal: "left", vertical: "bottom"}} anchorPosition={{top: 50, left: 6}} anchorReference={'anchorPosition'}>
-                    <MenuItem key={1}>Профиль</MenuItem>
-                    <MenuItem key={2}>Настройки</MenuItem>
+                <Menu  id="menu" anchorEl={anchorEl} open={open} onClose={handleClose} anchorOrigin={{horizontal: "left", vertical: "bottom"}} anchorPosition={{top: 50, left: 6}} anchorReference={'anchorPosition'}>
+                {routes.map((route) => ( <Link key = {route.path}
+                to = {route.path}
+                className = {`${classes.link} ${route.path ===pathName && classes.activeLink}`} >
+                <Typography > {route.pathTitle } </Typography> </Link>
+
+            ))
+        }
                 </Menu>
                 <TextField placeholder='Поиск...' variant='outlined' className={classes.input} InputProps={{startAdornment: (<InputAdornment position='start'><SearchIcon /></InputAdornment>)}}/> 
                 </Box>
                 <Box className={classes.chatWrapper}>
-                    {chats.map((chat, id) => (
-                        <ChatPrewiew chat={chat} key={id}/>
+                    {profiles.map((profile) => (
+                        <ChatPrewiew profile={profile} messages={messages[profile.id]}/>
                     ))}
                     
                 </Box>

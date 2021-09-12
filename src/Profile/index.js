@@ -17,7 +17,8 @@ import {
         width: "800px",
         display: "flex",
         margin: "0 auto",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        height: 'max-content'
     }
 
 }
