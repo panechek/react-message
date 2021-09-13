@@ -137,8 +137,8 @@ const AppBar = () => {
                 <TextField placeholder='Поиск...' variant='outlined' className={classes.input} InputProps={{startAdornment: (<InputAdornment position='start'><SearchIcon /></InputAdornment>)}}/> 
                 </Box>
                 <Box className={classes.chatWrapper}>
-                    {profiles.map((profile) => (
-                        <ChatPrewiew profile={profile} messages={messages[profile.id]}/>
+                    {profiles.map((profile, i) => (
+                        <ChatPrewiew profile={profile} messages={messages[profile.id]} key={i}/>
                     ))}
                     
                 </Box>

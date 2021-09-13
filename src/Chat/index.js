@@ -52,7 +52,7 @@ const sendMessageWithThunk = (message) => (dispatch, getState) =>{
   if (message.authorId === myId){
     const botMessage = {
       chatId: message.chatId,
-      trimmedMessage: "Я робот",
+      trimmedMessage: "Пора спать",
       authorId:  message.chatId,
     };
     setTimeout(() => dispatch(addMessage(botMessage)), 1500);
@@ -76,19 +76,7 @@ function Chat() {
   const background = useSelector(state => state.profile);
  console.log(chatId);
 
-//  const sendMessageWithThunk = (message) => (dispatch, getState) =>{
-//    const {chat} = getState();
-//    const myId = chat.myId;
-//    dispatch(addMessage(message));
-//    if (message.authorId === myId){
-//      const botMessage = {
-//        chatId: message.chatId,
-//        trimmedMessage: "Я робот",
-//        authorId:  message.chatId,
-//      };
-//      setTimeout(() => dispatch(addMessage(botMessage)), 1500);
-//    }
-//  };
+//  
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
@@ -104,14 +92,7 @@ function Chat() {
 
 
 
-  useEffect(() => {
-    if (messages.lenght > 0) {
-      setTimeout(() => {
-        console.log('Сообщение оправлено')
-      })
-    }
-  }, [messages])
-
+ 
 
 
 
