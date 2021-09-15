@@ -5,13 +5,14 @@ import {
     
 } from "react-router-dom";
 import Chat from "./Chat";
-import Contacts from "./Contacts";
+import Weather from "./Weather";
 import Home from "./Home";
 import AppBar from "./AppBar";
 import Profile from "./Profile";
 import {
     makeStyles
   } from '@material-ui/core/styles';
+
 
   const useStyles = makeStyles(() => ({
     wrapper: {
@@ -35,9 +36,9 @@ const App = () => {
                 <Route path="/chat/:id">
                     <Chat />
                 </Route>
-                <Route path="/contacts">
+                {/* <Route path="/contacts">
                     <Contacts />
-                </Route>
+                </Route> */}
                 <Route path="/Profile">
                     <Profile />
                 </Route>
@@ -51,6 +52,7 @@ const App = () => {
 
 
             </Switch> 
+            <Weather />
             </div>
         </Router>)
 };

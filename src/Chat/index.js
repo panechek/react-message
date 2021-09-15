@@ -6,7 +6,7 @@ import React, {
 import {
   useSelector,
   useDispatch
-} from 'react-redux'
+} from 'react-redux';
 import {
   addMessage
 } from './ChatSlice';

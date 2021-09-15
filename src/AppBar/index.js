@@ -86,10 +86,10 @@ const routes = [{
         pathTitle: "Chat",
         path: "/chat/2"
     },
-    {
-        pathTitle: "Contacts",
-        path: "/Contacts"
-    },
+    // {
+    //     pathTitle: "Contacts",
+    //     path: "/Contacts"
+    // },
     {
         pathTitle: "Profile",
         path: "/Profile"
