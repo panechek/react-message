@@ -12,6 +12,9 @@ import { useCallback, useEffect } from 'react';
 import  Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import moment from "moment";
+
+import Box from '@material-ui/core/Box';
+import  CircularProgress from '@material-ui/core/CircularProgress';
   
 
   const useStyles = makeStyles(() => ({
@@ -29,12 +32,29 @@ import moment from "moment";
         flexDirection: 'column',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        // justifyContent: 'space-around'
     },
 
     title: {
         textAlign: 'center',
-        marginBottom: '15px'
+        marginBottom: '15px',
+        height: '100px',
+        position: 'static'
+    },
+
+    mistake: {
+        height: '100px'
+    },
+
+    data: {
+        textAlign: 'start'
+    },
+
+    forecast: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%'
     }
 
   }));
@@ -74,22 +94,37 @@ const Weather = () => {
     const getWeatherInfoThunk = useCallback(() => dispatch(getWeatherInfo()), [dispatch])
 
     useEffect(()=> {
-        // setInterval(() => {
+        setInterval(() => {
        getWeatherInfoThunk();
-        // },1500)
+        },60000)
     }, [getWeatherInfoThunk])
+
     
 
     return (<div className={classes.wrapper}> 
-        <Paper className={classes.paperWrapper}>
-        <Typography variant="h3" className={classes.title}>WEATHER FORECAST</Typography>
-        <Typography>
-        {moment().format('MMMM Do YYYY, h:mm:ss')}</Typography>
-        <Typography>Temperature {data.temperature}</Typography>
-            <Typography>Wind{data.wind}</Typography>
-            <Typography>{data.description}</Typography>
 
-           
+        <Paper className={classes.paperWrapper}>
+        
+        <Typography variant="h3" className={classes.title}>WEATHER FORECAST</Typography>
+        <Typography className={classes.data}>
+        {moment().format('MMMM Do YYYY, ')}</Typography>
+            <div className={classes.forecast}>
+            {loading && <CircularProgress />}
+            
+            <div className={classes.mistake}>
+            {error && <div>Mistake</div>} 
+            </div>
+            {!loading && !error && data && (
+            
+                <Box className={classes.paperWrapper}>
+
+       
+            <Typography>Temperature {data.temperature}</Typography>
+            <Typography>Wind {data.wind}</Typography>
+            <Typography>{data.description}</Typography>
+            </Box>
+            )}
+           </div>
             </Paper>
         </div>
     )
