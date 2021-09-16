@@ -73,6 +73,16 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     }
     ,
+    menuWrapper: {
+        height: '100%',
+        width: '350px',
+        padding: '20px'
+    
+    },
+
+    menuItem: {
+        marginBottom: '30px'
+    }
 
   
     
@@ -125,11 +135,11 @@ const AppBar = () => {
                <IconButton onClick={handleClick}>
                    <MenuIcon />
                 </IconButton>
-                <Menu  id="menu" anchorEl={anchorEl} open={open} onClose={handleClose} anchorOrigin={{horizontal: "left", vertical: "bottom"}} anchorPosition={{top: 50, left: 6}} anchorReference={'anchorPosition'}>
+                <Menu  classes={{paper: classes.menuWrapper}} id="menu" anchorEl={anchorEl} open={open} onClose={handleClose} anchorOrigin={{horizontal: "left", vertical: "bottom"}} anchorPosition={{top: 62, }} anchorReference={'anchorPosition'}>
                 {routes.map((route) => ( <Link key = {route.path}
                 to = {route.path}
                 className = {`${classes.link} ${route.path ===pathName && classes.activeLink}`} >
-                <Typography > {route.pathTitle } </Typography> </Link>
+                <Typography variant='h4' className={classes.menuItem}> {route.pathTitle } </Typography> </Link>
 
             ))
         }
