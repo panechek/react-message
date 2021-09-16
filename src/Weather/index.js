@@ -10,6 +10,8 @@ import {
   } from 'react-redux';
 import { useCallback, useEffect } from 'react';
 import  Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import moment from "moment";
   
 
   const useStyles = makeStyles(() => ({
@@ -17,6 +19,22 @@ import  Typography from '@material-ui/core/Typography';
         width: '500px',
         height: '100vh',
         display: 'flex'
+    },
+
+    paperWrapper: {
+        height: '50%',
+        margin: '5px',
+        display: 'flex',
+        padding: '10px',
+        flexDirection: 'column',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+
+    title: {
+        textAlign: 'center',
+        marginBottom: '15px'
     }
 
   }));
@@ -56,13 +74,23 @@ const Weather = () => {
     const getWeatherInfoThunk = useCallback(() => dispatch(getWeatherInfo()), [dispatch])
 
     useEffect(()=> {
+        // setInterval(() => {
        getWeatherInfoThunk();
+        // },1500)
     }, [getWeatherInfoThunk])
     
 
     return (<div className={classes.wrapper}> 
-        <Typography> {data.temperature} </Typography>
-        
+        <Paper className={classes.paperWrapper}>
+        <Typography variant="h3" className={classes.title}>WEATHER FORECAST</Typography>
+        <Typography>
+        {moment().format('MMMM Do YYYY, h:mm:ss')}</Typography>
+        <Typography>Temperature {data.temperature}</Typography>
+            <Typography>Wind{data.wind}</Typography>
+            <Typography>{data.description}</Typography>
+
+           
+            </Paper>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import {
 } from '@reduxjs/toolkit';
 
 export
-const WEATHER_API_URL = 'https://goweather.herokuapp.com/weather/Moscow'
+const WEATHER_API_URL = 'https://goweather.herokuapp.com/weather/Moskow'
 
 export const weatherSlice = createSlice({
     name: 'weather',

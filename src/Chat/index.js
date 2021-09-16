@@ -15,7 +15,9 @@ import MessageListComp from './MessageListComp';
 import {
   makeStyles
 } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
+import {
+  useParams
+} from 'react-router-dom';
 
 
 
@@ -27,7 +29,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     // border: "1px solid black",
     margin: "0 auto",
-    width: '100%',
+    width: '60%',
     borderBottom: "none"
 
   },
@@ -45,15 +47,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const sendMessageWithThunk = (message) => (dispatch, getState) =>{
-  const {chat} = getState();
+const sendMessageWithThunk = (message) => (dispatch, getState) => {
+  const {
+    chat
+  } = getState();
   const myId = chat.myId;
   dispatch(addMessage(message));
-  if (message.authorId === myId){
+  if (message.authorId === myId) {
     const botMessage = {
       chatId: message.chatId,
       trimmedMessage: "Пора спать",
-      authorId:  message.chatId,
+      authorId: message.chatId,
     };
     setTimeout(() => dispatch(addMessage(botMessage)), 1500);
   }
@@ -62,7 +66,7 @@ const sendMessageWithThunk = (message) => (dispatch, getState) =>{
 function Chat() {
 
   const urlParams = useParams();
-  const chatId = Number.parseInt( urlParams.id);
+  const chatId = Number.parseInt(urlParams.id);
 
 
   const classes = useStyles();
@@ -74,37 +78,60 @@ function Chat() {
   const myId = useSelector((state) => state.chat.myId);
 
   const background = useSelector(state => state.profile);
- console.log(chatId);
+  console.log(chatId);
 
-//  
+  //  
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
 
     if (trimmedMessage !== "") {
       dispatch(sendMessageWithThunk({
-        chatId, trimmedMessage, authorId: myId
-        
+        chatId,
+        trimmedMessage,
+        authorId: myId
+
       }));
+    };
+    setInputMessage('')
   };
-  setInputMessage('')
-};
-
-
-
- 
 
 
 
 
 
 
-  return ( <div className = { classes.messanger} style={background} >
-    <div className = {classes.activChat} >
-    <MessageListComp  messagesArray={  messages}/>  
-    <Message value = {inputMessage} onChange = {setInputMessage} onClick = {onSendMessage} />  
-     </div > 
-     </div>
+
+
+
+
+  return ( < div className = {
+      classes.messanger
+    }
+    style = {
+      background
+    } >
+    <
+    div className = {
+      classes.activChat
+    } >
+    <
+    MessageListComp messagesArray = {
+      messages
+    }
+    />   <
+    Message value = {
+      inputMessage
+    }
+    onChange = {
+      setInputMessage
+    }
+    onClick = {
+      onSendMessage
+    }
+    />   <
+    /div >  <
+    /div>
   );
 }
 
