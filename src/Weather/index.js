@@ -90,6 +90,7 @@ const Weather = () => {
     const dispatch = useDispatch();
     const {data, error, loading} = useSelector((state) => state.weather);
     console.log (data, error, loading);
+    
 
     const getWeatherInfoThunk = useCallback(() => dispatch(getWeatherInfo()), [dispatch])
 
@@ -107,7 +108,9 @@ const Weather = () => {
         
         <Typography variant="h3" className={classes.title}>WEATHER FORECAST</Typography>
         <Typography className={classes.data}>
-        {moment().format('MMMM Do YYYY, ')}</Typography>
+        {moment().format('MMMM Do YYYY, ')}
+       
+        </Typography>
             <div className={classes.forecast}>
             {loading && <CircularProgress />}
             
@@ -119,9 +122,9 @@ const Weather = () => {
                 <Box className={classes.paperWrapper}>
 
        
-            <Typography>Temperature {data.temperature}</Typography>
-            <Typography>Wind {data.wind}</Typography>
-            <Typography>{data.description}</Typography>
+            <Typography>Temperature {data.current_weather.temperature} C</Typography>
+            <Typography>Wind {data.current_weather.windspeed} m/s</Typography>
+            
             </Box>
             )}
            </div>

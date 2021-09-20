@@ -3,7 +3,7 @@ import {
 } from '@reduxjs/toolkit';
 
 export
-const WEATHER_API_URL = 'https://goweather.herokuapp.com/weather/Moscow'
+const WEATHER_API_URL = 'https://api.open-meteo.com/v1/forecast?latitude=55.7558&longitude=37.6176&current_weather=true&timezone=Europe%2FMoscow'
 
 export const weatherSlice = createSlice({
     name: 'weather',
