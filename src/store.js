@@ -13,7 +13,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 const persistConfig = {
     key: 'root',
     storage,
-    blackList: ['weather']
+    blacklist: ['weather']
 }
 
 const reducers = combineReducers({
@@ -26,10 +26,8 @@ const reducers = combineReducers({
 const persistedReducer = persistReducer(persistConfig, reducers)
 
 export default configureStore({
-    reducer:
-        // chat: chatReducer,
-        persistedReducer
-        // profile: profileReducer
+    reducer: persistedReducer
+
         ,
     middleware: [ThunkMiddleware]
 })
