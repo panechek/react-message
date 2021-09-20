@@ -32,7 +32,7 @@ import  CircularProgress from '@material-ui/core/CircularProgress';
         flexDirection: 'column',
         width: '100%',
         alignItems: 'center',
-        // justifyContent: 'space-around'
+      
     },
 
     title: {
@@ -111,9 +111,11 @@ const Weather = () => {
         {moment().format('MMMM Do YYYY, ')}
        
         </Typography>
+
             <div className={classes.forecast}>
+                
             {loading && <CircularProgress />}
-            
+           
             <div className={classes.mistake}>
             {error && <div>Mistake</div>} 
             </div>
