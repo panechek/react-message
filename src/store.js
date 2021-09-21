@@ -13,7 +13,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['weather']
+    blacklist: ['weather', 'chat', 'profile']
 }
 
 const reducers = combineReducers({

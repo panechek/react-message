@@ -1,9 +1,9 @@
 
-import Button from '@material-ui/core/Button';
+
 import {
     makeStyles
   } from '@material-ui/core/styles';
-  import { setLoading, setData, setError, WEATHER_API_URL} from './WeatherSlice';
+  
   import {
     useSelector,
     useDispatch
@@ -15,6 +15,7 @@ import moment from "moment";
 
 import Box from '@material-ui/core/Box';
 import  CircularProgress from '@material-ui/core/CircularProgress';
+import {getWeatherForecast} from './actions'
   
 
   const useStyles = makeStyles(() => ({
@@ -59,30 +60,7 @@ import  CircularProgress from '@material-ui/core/CircularProgress';
 
   }));
 
-  const getWeatherInfo =  () => async(dispatch, getState) =>{
-    const {weather: {data, loading, error}} = getState();
   
-
-    if ( !loading){
-        try {
-            dispatch(setError(false));
-            dispatch(setLoading(true));
-        const response = await fetch(WEATHER_API_URL);
-        if (!response.ok) {
-            throw new Error('Mistake');
-        };
-        const results = await response.json();
-        console.log(results);
-        dispatch(setData(results));
-        } catch (e) {
-            dispatch(setError(true));
-        }  finally {
-            dispatch(setLoading(false));
-        }
-    }
-
-
-  };
 
 const Weather = () => {
     
@@ -92,11 +70,12 @@ const Weather = () => {
     console.log (data, error, loading);
     
 
-    const getWeatherInfoThunk = useCallback(() => dispatch(getWeatherInfo()), [dispatch])
+    const getWeatherInfoThunk = useCallback(() => dispatch(getWeatherForecast()), [dispatch])
 
     useEffect(()=> {
         setInterval(() => {
        getWeatherInfoThunk();
+      
         },60000)
     }, [getWeatherInfoThunk])
 
@@ -108,17 +87,19 @@ const Weather = () => {
         
         <Typography variant="h3" className={classes.title}>WEATHER FORECAST</Typography>
         <Typography className={classes.data}>
-        {moment().format('MMMM Do YYYY, ')}
-       
+        {moment().format('MMMM Do YYYY ')}
         </Typography>
 
             <div className={classes.forecast}>
                 
-            {loading && <CircularProgress />}
+          
            
             <div className={classes.mistake}>
-            {error && <div>Mistake</div>} 
+            {loading &&  <CircularProgress />}
+            {error &&  <div>Mistake</div>} 
+            {data==null && <CircularProgress /> }
             </div>
+
             {!loading && !error && data && (
             
                 <Box className={classes.paperWrapper}>
