@@ -38,7 +38,7 @@ const Login = () => {
             try {
                 await firebase.auth().signInWithEmailAndPassword(email, password);
                 dispatch(changeIsAuth(true));
-                history.push('/');
+                history.push('/profile');
             } catch (error) {
                 setError(error.message);
             }
