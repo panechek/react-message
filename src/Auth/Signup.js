@@ -2,11 +2,9 @@ import {
     useState
 } from "react";
 import {
-    Link
+    Link, useHistory
 } from "react-router-dom";
-import {
-    useHistory
-} from "react-router";
+
 import {
     useDispatch
 } from "react-redux";
@@ -44,7 +42,7 @@ const Signup = () => {
             try {
                 await firebase.auth().createUserWithEmailAndPassword(email, password);
                 dispatch(changeIsAuth(true));
-                history.push('/chat');
+                history.push('/profile');
             } catch (error) {
                 setError(error.message);
             }
@@ -82,9 +80,12 @@ const Signup = () => {
                   Already have an account? <Link to="/login">Sign in</Link>
                 </p>
               </form>
+              <code>
+        <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
+      </code>
             </div>
           );
-        
+}
 
     export default Signup
   

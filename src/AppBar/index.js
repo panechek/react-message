@@ -135,7 +135,7 @@ const AppBar = () => {
                <IconButton onClick={handleClick}>
                    <MenuIcon />
                 </IconButton>
-                <Menu  classes={{paper: classes.menuWrapper}} id="menu" anchorEl={anchorEl} open={open} onClose={handleClose} anchorOrigin={{horizontal: "left", vertical: "bottom"}} anchorPosition={{top: 62, left: 1}} anchorReference={'anchorPosition'}>
+                <Menu  classes={{paper: classes.menuWrapper}} id="menu" anchorEl={anchorEl} open={open} onClose={handleClose} anchorOrigin={{horizontal: "left", vertical: "bottom"}} anchorPosition={{top: 62, }} anchorReference={'anchorPosition'}>
                 {routes.map((route) => ( <Link key = {route.path}
                 to = {route.path}
                 className = {`${classes.link} ${route.path ===pathName && classes.activeLink}`} >
@@ -148,7 +148,7 @@ const AppBar = () => {
                 </Box>
                 <Box className={classes.chatWrapper}>
                     {profiles.map((profile, i) => (
-                        <ChatPrewiew profile={profile} messages={messages[profile.id]} key={i}/>
+                        <ChatPrewiew profile={profile} messages={messages[profile.id] || []} key={i}/>
                     ))}
                     
                 </Box>

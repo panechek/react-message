@@ -6,48 +6,8 @@ import moment from 'moment'
 export const chatSlice = createSlice({
   name: 'chat',
   initialState: {
-    isAuthenticated: true,
-    messages: {
-      2: [{
-          timeStamp: moment('1995-12-17T03:24:00').valueOf(),
-          authorId: 1,
-          text: 'Привет',
-        },
-        {
-          timeStamp: moment('1995-12-17T03:24:00').valueOf(),
-          authorId: 2,
-          text: 'Здорово. Как дела? Когда увидимся?',
-        },
-      ],
-
-      3: [
-
-        {
-          timeStamp: moment('1995-12-17T03:24:00').valueOf(),
-          authorId: 3,
-          text: 'Как дела?',
-        },
-        {
-          timeStamp: moment('1995-12-17T03:24:00').valueOf(),
-          authorId: 1,
-          text: 'Норм',
-        },
-      ],
-
-      4: [
-
-        {
-          timeStamp: moment('1995-12-17T03:24:00').valueOf(),
-          authorId: 4,
-          text: 'Ты где?',
-        },
-        {
-          timeStamp: moment('1995-12-17T03:24:00').valueOf(),
-          authorId: 1,
-          text: 'Сплю',
-        },
-      ],
-    },
+    isAuthenticated: false,
+    messages: {},
 
     profiles: [{
         id: 2,
@@ -89,6 +49,21 @@ export const chatSlice = createSlice({
 
       };
     },
+
+    setMessages: (state, action) => {
+      const {
+        chatId,
+        messages
+      } = action.payload;
+
+      console.log(action, "ACTION");
+
+      state.messages = {
+        ...state.messages,
+        [chatId]: messages,
+      };
+    },
+
     changeIsAuth: (state, action) => {
       state.isAuthenticated = action.payload;
     }
@@ -99,7 +74,8 @@ export const chatSlice = createSlice({
 
 export const {
   addMessage,
-  changeIsAuth
+  changeIsAuth,
+  setMessages
 } = chatSlice.actions;
 
 export default chatSlice.reducer

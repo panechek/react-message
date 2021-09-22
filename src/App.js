@@ -12,7 +12,7 @@ import Profile from "./Profile";
 import {
     makeStyles
   } from '@material-ui/core/styles';
-import  Signup  from "./Auth/Login";
+import  Signup  from "./Auth/Signup";
 import  Login  from "./Auth/Login";
 
 import firebase from 'firebase/compat'
@@ -32,15 +32,14 @@ import CustomRoute from "./util/CustomRoute";
   }));
 
   export const firebaseConfig = {
-    apiKey: "AIzaSyANtBaeDjrPPzY6TIrjq8CMvSB3Az5agL0",
-    authDomain: "gb-react-project-350cd.firebaseapp.com",
-    projectId: "gb-react-project-350cd",
-    databaseURL:
-      "https://gb-react-project-350cd-default-rtdb.europe-west1.firebasedatabase.app",
-    storageBucket: "gb-react-project-350cd.appspot.com",
-    messagingSenderId: "524675586930",
-    appId: "1:524675586930:web:571c4afa11c8f74e439beb",
-  };
+    apiKey: "AIzaSyA7bt3BgH-8qE2c_dM-TbJkXHBKIynHxuY",
+    authDomain: "gb-react-message.firebaseapp.com",
+    databaseURL: "https://gb-react-message-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "gb-react-message",
+    storageBucket: "gb-react-message.appspot.com",
+    messagingSenderId: "162443891411",
+    appId: "1:162443891411:web:7e979607597691b7d3fa26"
+};
   
   firebase.initializeApp(firebaseConfig);
   export const db = firebase.database();
