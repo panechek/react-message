@@ -7,6 +7,7 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState: {
     isAuthenticated: false,
+    myUid: '',
     messages: {},
 
     profiles: [{
@@ -56,7 +57,6 @@ export const chatSlice = createSlice({
         messages
       } = action.payload;
 
-      console.log(action, "ACTION");
 
       state.messages = {
         ...state.messages,
@@ -66,6 +66,10 @@ export const chatSlice = createSlice({
 
     changeIsAuth: (state, action) => {
       state.isAuthenticated = action.payload;
+    },
+
+    setMyUid: (state, action) => {
+      state.myUid = action.payload;
     }
 
   },
@@ -75,7 +79,8 @@ export const chatSlice = createSlice({
 export const {
   addMessage,
   changeIsAuth,
-  setMessages
+  setMessages,
+  setMyUid
 } = chatSlice.actions;
 
 export default chatSlice.reducer
