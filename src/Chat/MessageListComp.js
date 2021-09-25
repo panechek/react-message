@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import {useSelector, } from 'react-redux';
+
 import moment from "moment";
 
 const useStyles = makeStyles(() => ({
@@ -61,19 +62,23 @@ const MessageListComp = ({messagesArray}) => {
     const classes = useStyles();
 
     const {myId} = useSelector((state) => state.chat);
+
+    console.log(messagesArray, 'ma')
   
-    return (<div className={classes.messageList}>
+    return (<div className={`${classes.messageList} messageList`}>
         
-        {messagesArray.map((message, i) => (
+        {messagesArray && messagesArray.map((message, i) => (
                  
             
         <div className={message.authorId === myId ? classes.userMessage : classes.senderMessage} key={i} >
-                <div className={classes.messageText}>{message.text}</div>
+                <div className={classes.messageText}>{message.trimmedMessage}</div>
                 <div className={classes.messageTime}>{moment(message.timeStamp).format('hh:mm')}</div>
                 <div className={classes.messageAuthor}>{message.author}</div>
             </div>))}
     </div>)
 };
+
+
 
 export default MessageListComp;
 

@@ -7,13 +7,15 @@ import chatReducer from "./Chat/ChatSlice";
 import profileReducer from "./Profile/ProfileSlice";
 import weatherReducer from './Weather/WeatherSlice'
 import ThunkMiddleware from "redux-thunk";
-import persistReducer from "redux-persist/es/persistReducer";
+import {
+    persistReducer
+} from "redux-persist";
 
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['weather']
+    blacklist: ['weather', 'chat', 'profile']
 }
 
 const reducers = combineReducers({
