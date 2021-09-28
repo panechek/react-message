@@ -17,7 +17,6 @@ import  Login  from "./Auth/Login";
 
 import firebase from 'firebase/compat'
 import CustomRoute from "./util/CustomRoute";
-import { useAuthState } from 'react-firebase-hooks/auth';
 
   
 
@@ -50,11 +49,7 @@ const App = () => {
 
     const classes = useStyles();
 
-    const [user, loading, error] = useAuthState(firebase.auth());
 
-    if(loading || error) {
-        return <div>Loading</div>
-    }
     
 
     return (<Router >
