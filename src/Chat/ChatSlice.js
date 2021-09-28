@@ -7,35 +7,26 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState: {
     isAuthenticated: false,
-    myUid: '',
     messages: {},
 
-    chats: {
-      // Wfngyi13ghNdX2HqENWeeZznmna2: {
-      //   chatId: ''
-      // },
-      // zmVy24VvO8gw1aXwnLv0qSZVz1U2: {
-      //   chatId: ''
-      // },
-      // "UAogk6WhddbZzD5MpDvx4lwdIli2"
-      // [{
-      //     id: 2,
-      //     name: 'Ваня Иванов',
-      //     avatar: 'https://mui.com/static/images/avatar/2.jpg',
-      //   },
-      //   {
-      //     id: 3,
-      //     name: 'Катя Петрова',
-      //     avatar: 'https://mui.com/static/images/avatar/3.jpg',
-      //   },
-      //   {
-      //     id: 4,
-      //     name: 'Папа',
-      //     avatar: 'https://mui.com/static/images/avatar/1.jpg',
-      //   },
-      // ],
-    },
+    profiles: [{
+        id: 2,
+        name: 'Ваня Иванов',
+        avatar: 'https://material-ui.com/static/images/avatar/2.jpg',
+      },
+      {
+        id: 3,
+        name: 'Катя Петрова',
+        avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
+      },
+      {
+        id: 4,
+        name: 'Папа',
+        avatar: 'https://material-ui.com/static/images/avatar/1.jpg',
+      },
+    ],
 
+    myId: 1,
   },
   reducers: {
 
@@ -65,6 +56,7 @@ export const chatSlice = createSlice({
         messages
       } = action.payload;
 
+      console.log(action, "ACTION");
 
       state.messages = {
         ...state.messages,
@@ -74,21 +66,6 @@ export const chatSlice = createSlice({
 
     changeIsAuth: (state, action) => {
       state.isAuthenticated = action.payload;
-    },
-
-    setChat: (state, action) => {
-      // const {
-      //   targetUid,
-      //   chatId
-      // } = action.payload;
-      state.chats = {
-        ...state.chats,
-        ...action.payload,
-      }
-    },
-
-    setMyUid: (state, action) => {
-      state.myUid = action.payload;
     }
 
   },
@@ -98,9 +75,7 @@ export const chatSlice = createSlice({
 export const {
   addMessage,
   changeIsAuth,
-  setMessages,
-  setMyUid,
-  setChat
+  setMessages
 } = chatSlice.actions;
 
 export default chatSlice.reducer
