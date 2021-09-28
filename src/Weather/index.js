@@ -79,6 +79,14 @@ const Weather = () => {
         },60000)
     }, [getWeatherInfoThunk])
 
+    if(!data===null){
+        return (
+            <div>
+            <CircularProgress />
+            </div>
+        )
+    }
+
     
 
     return (<div className={classes.wrapper}> 

@@ -61,16 +61,17 @@ const MessageListComp = ({messagesArray}) => {
 
     const classes = useStyles();
 
-    const {myId} = useSelector((state) => state.chat);
+    const {myUid} = useSelector((state) => state.chat);
+   
 
-    console.log(messagesArray, 'ma')
+
   
     return (<div className={`${classes.messageList} messageList`}>
         
         {messagesArray && messagesArray.map((message, i) => (
                  
             
-        <div className={message.authorId === myId ? classes.userMessage : classes.senderMessage} key={i} >
+        <div className={  message.authorUid === myUid ? classes.userMessage : classes.senderMessage} key={i} >
                 <div className={classes.messageText}>{message.trimmedMessage}</div>
                 <div className={classes.messageTime}>{moment(message.timeStamp).format('hh:mm')}</div>
                 <div className={classes.messageAuthor}>{message.author}</div>
