@@ -1,24 +1,11 @@
-import React, {
-  useEffect,
-  useState,
-
-} from 'react';
-import {
-  useSelector,
-  useDispatch
-} from 'react-redux';
+import React, {  useEffect,  useState,} from 'react';
+import {  useSelector,  useDispatch} from 'react-redux';
 
 import Message from './MessageComp';
 import MessageListComp from './MessageListComp';
-import {
-  makeStyles
-} from '@material-ui/core/styles';
-import {
-  useParams
-} from 'react-router-dom';
-import {
-  sendMessageWithThunk,initMessageTracking
-} from './actions'
+import {  makeStyles} from '@material-ui/core/styles';
+import {  useParams} from 'react-router-dom';
+import {  sendMessageWithThunk, initMessageTracking} from './actions'
 
 
 
@@ -52,22 +39,23 @@ const useStyles = makeStyles(() => ({
 function Chat() {
 
   const urlParams = useParams();
-  const chatId = Number.parseInt(urlParams.id);
+  const targetUId = urlParams.id;
+  const chats = useSelector ((state) => state.chat.chats);
 
+  const targetProfileId = Object.keys(chats).find((profileId)=> profileId );
 
-  const classes = useStyles();
+    const classes = useStyles();
   const dispatch = useDispatch();
 
   const [inputMessage, setInputMessage] = useState('');
 
-  const messages = useSelector((state) => state.chat.messages[chatId]);
-  console.log(messages, 'mc')
-  const myId = useSelector((state) => state.chat.myId);
+ 
+ 
+  const myUid = useSelector((state) => state.chat.myUid);
 
   const background = useSelector(state => state.profile);
-  console.log(chatId);
-
-  //  
+  const chatId = chats[targetProfileId] ? chats[targetProfileId].chatId :null;
+  const messages = useSelector((state) => state.chat.messages[chatId]);
 
   const onSendMessage = () => {
     const trimmedMessage = inputMessage.trim();
@@ -76,13 +64,15 @@ function Chat() {
       dispatch(sendMessageWithThunk({
         chatId,
         trimmedMessage,
-        authorId: myId
+        authorUid: myUid,
+        targetUid: targetUId,
 
       }));
     };
     setInputMessage('')
   };
 
+ 
   useEffect(() => {
     
     if (document.getElementsByClassName("messageList")[0]) {
@@ -90,25 +80,18 @@ function Chat() {
     }
   });
 
+  if (!targetProfileId || !chatId) {
+    return <div>Ошибка</div>
+  };
 
-
-
+  
+  
 
   return ( <div className = {classes.messanger} style = {background}>
     <div className = {classes.activChat}>
-    <MessageListComp messagesArray = {
-      messages
-    }/>   
-    <Message value = {
-      inputMessage
-    }
-    onChange = {
-      setInputMessage
-    }
-    onClick = {
-      onSendMessage
-    }
-    /> 
+    <MessageListComp messagesArray = {messages}/>   
+    <Message value = {inputMessage} onChange = {setInputMessage}
+    onClick = {onSendMessage}/> 
       </div>
        </div>
   );
