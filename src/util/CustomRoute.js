@@ -8,9 +8,11 @@ import {
 } from 'react-router-dom';
 import AppBar from "../AppBar";
 import { initMessageTracking } from "../Chat/actions";
+import {initChatsTracking} from "../AppBar/actions"
 import { setMyUid, changeIsAuth } from "../Chat/ChatSlice";
 import firebase from "firebase/compat/app";
 import { useAuthState } from "react-firebase-hooks/auth";
+
 
    
 
@@ -31,7 +33,13 @@ const CustomRoute = ({
 
     useEffect(() => {
         dispatch(initMessageTracking());
+       
       }, [dispatch]);
+
+    useEffect(()=>{
+        if(myUid){
+        dispatch(initChatsTracking(myUid));
+    }},[myUid, dispatch])
     
       if(user && !myUid){
           dispatch(setMyUid(user.uid));
