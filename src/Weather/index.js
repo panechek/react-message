@@ -56,6 +56,15 @@ import {getWeatherForecast} from './actions'
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%'
+    },
+
+    dataMistake: {
+        
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        alignItems: 'center'
+
     }
 
   }));
@@ -79,9 +88,9 @@ const Weather = () => {
         },60000)
     }, [getWeatherInfoThunk])
 
-    if(!data===null){
+    if(!data.current_weather ){
         return (
-            <div>
+            <div className={classes.dataMistake}>
             <CircularProgress />
             </div>
         )
@@ -97,15 +106,11 @@ const Weather = () => {
         <Typography className={classes.data}>
         {moment().format('MMMM Do YYYY ')}
         </Typography>
-
             <div className={classes.forecast}>
-                
-          
-           
             <div className={classes.mistake}>
             {loading &&  <CircularProgress />}
             {error &&  <div>Mistake</div>} 
-            {data==null && <CircularProgress /> }
+            {/* {!data.current_weather && <CircularProgress /> } */}
             </div>
 
             {!loading && !error && data && (
