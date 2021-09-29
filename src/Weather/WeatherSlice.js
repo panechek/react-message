@@ -10,7 +10,7 @@ export const weatherSlice = createSlice({
     initialState: {
         loading: false,
         error: false,
-        data: null
+        data: {}
     },
     reducers: {
         setLoading: (state, action) => {
