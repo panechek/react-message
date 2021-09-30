@@ -1,8 +1,15 @@
 import {
-    getWeatherInfoThunk
-} from './index'
+    weatherReducer,
+    setLoading
+} from './WeatherSlice'
 
-test('get data', () => {
-    const weather = getWeatherInfoThunk();
-    expect(weather).toBe(!null)
+describe('get weather', () => {
+    it('is loading', () => {
+        const weather = weatherReducer({
+                loading: false
+            },
+            setLoading(true))
+
+        expect(weather.loading).toBe(true)
+    })
 })
