@@ -5,6 +5,7 @@ import {
 
 describe('get weather', () => {
     it('is loading', () => {
+
         const weather = weatherReducer({
                 loading: false
             },
